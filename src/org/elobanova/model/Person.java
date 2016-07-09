@@ -2,6 +2,8 @@ package org.elobanova.model;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.TemporalType;
 @Table(name = "GOT_CHARACTER")
 public class Person {
 
+	//if Id is complex, use @EmbeddedID instead of @Id+@Embedded
 	@Id
 	@Column(name = "CHARACTER_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,6 +35,10 @@ public class Person {
 	@Column(name = "BORN_DATE")
 	private Date bornDate;
 
+	// in case there will be a second field stolenSword of type Sword
+	@AttributeOverrides({
+			@AttributeOverride(name = "length", column = @Column(name = "OWN_SWORD_LENGTH")),
+			@AttributeOverride(name = "forgedAt", column = @Column(name = "OWN_SWORD_FORGE_AT")) })
 	private Sword sword;
 
 	@Lob
