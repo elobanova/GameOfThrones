@@ -1,8 +1,8 @@
 package org.elobanova.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -18,6 +18,10 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "GOT_CHARACTER")
@@ -51,7 +55,9 @@ public class Person {
 
 	@ElementCollection
 	@JoinTable(name = "CHARACTER_PET", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
-	private Set<Pet> pets = new HashSet<>();
+	@GenericGenerator(name="sequence-gen",strategy="sequence")
+	@CollectionId(columns = { @Column(name = "PET_ID") }, generator = "sequence-gen", type = @Type(type = "long"))
+	private Collection<Pet> pets = new ArrayList<>();
 
 	// Capturing the values in fact from the getter
 	public int getPersonId() {
@@ -102,11 +108,11 @@ public class Person {
 		this.bornDate = bornDate;
 	}
 
-	public Set<Pet> getPets() {
+	public Collection<Pet> getPets() {
 		return pets;
 	}
 
-	public void setPets(Set<Pet> pets) {
+	public void setPets(Collection<Pet> pets) {
 		this.pets = pets;
 	}
 }

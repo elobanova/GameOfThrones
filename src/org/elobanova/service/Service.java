@@ -1,8 +1,6 @@
 package org.elobanova.service;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.elobanova.model.Person;
 import org.elobanova.model.Pet;
@@ -57,10 +55,8 @@ public class Service {
 		flyingDove.setNickName("John Snow's Flying Dove A319");
 		flyingDove.setAlive(true);
 
-		Set<Pet> johnSnowPets = new HashSet<>();
-		johnSnowPets.add(direWolf);
-		johnSnowPets.add(flyingDove);
-		johnSnow.setPets(johnSnowPets);
+		johnSnow.getPets().add(direWolf);
+		johnSnow.getPets().add(flyingDove);
 
 		new Service().save(johnSnow);
 	}
