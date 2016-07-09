@@ -1,6 +1,8 @@
 package org.elobanova.model;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,15 +36,29 @@ public class Service {
 	}
 
 	public static void main(String[] args) {
-		Person person = new Person();
-		person.setFirstName("John Snow");
+		Person johnSnow = new Person();
+		johnSnow.setFirstName("John Snow Bastard");
 		Calendar cal = Calendar.getInstance();
 		cal.set(1001, 01, 10);
-		person.setBornDate(cal.getTime());
+		johnSnow.setBornDate(cal.getTime());
 		Sword sword = new Sword();
-		sword.setForgedAt(person.getBornDate());
+		sword.setForgedAt(johnSnow.getBornDate());
 		sword.setLength(100500.42);
-		person.setSword(sword);
-		new Service().save(person);
+		johnSnow.setSword(sword);
+
+		Pet direWolf = new Pet();
+		direWolf.setNickName("John Snow's Dire Wolf Puff");
+		direWolf.setAlive(false);
+
+		Pet flyingDove = new Pet();
+		flyingDove.setNickName("John Snow's Flying Dove A319");
+		flyingDove.setAlive(true);
+
+		Set<Pet> johnSnowPets = new HashSet<>();
+		johnSnowPets.add(direWolf);
+		johnSnowPets.add(flyingDove);
+		johnSnow.setPets(johnSnowPets);
+
+		new Service().save(johnSnow);
 	}
 }

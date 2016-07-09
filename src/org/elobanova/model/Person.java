@@ -1,14 +1,19 @@
 package org.elobanova.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,7 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "GOT_CHARACTER")
 public class Person {
 
-	//if Id is complex, use @EmbeddedID instead of @Id+@Embedded
+	// if Id is complex, use @EmbeddedID instead of @Id+@Embedded
 	@Id
 	@Column(name = "CHARACTER_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -43,6 +48,10 @@ public class Person {
 
 	@Lob
 	private String loveStoryDescription;
+
+	@ElementCollection
+	@JoinTable(name = "CHARACTER_PET", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
+	private Set<Pet> pets = new HashSet<>();
 
 	// Capturing the values in fact from the getter
 	public int getPersonId() {
@@ -91,5 +100,13 @@ public class Person {
 
 	public void setBornDate(Date bornDate) {
 		this.bornDate = bornDate;
+	}
+
+	public Set<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
 	}
 }
