@@ -33,7 +33,6 @@ public class Service {
 
 	public static void main(String[] args) {
 		Person person = new Person();
-		person.setPersonId(PRIM_KEY);
 		person.setFirstName("John Snow");
 		new Service().save(person);
 	}
