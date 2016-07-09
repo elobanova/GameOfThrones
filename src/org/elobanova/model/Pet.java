@@ -1,12 +1,21 @@
 package org.elobanova.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "GOT_PET")
 public class Pet {
 	@Id
+	@Column(name = "PET_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int petId;
+
+	@Column(name = "PET_NAME")
 	private String nickName;
 	private boolean isAlive;
 

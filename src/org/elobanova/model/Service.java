@@ -1,5 +1,7 @@
 package org.elobanova.model;
 
+import java.util.Calendar;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -34,6 +36,13 @@ public class Service {
 	public static void main(String[] args) {
 		Person person = new Person();
 		person.setFirstName("John Snow");
+		Calendar cal = Calendar.getInstance();
+		cal.set(1001, 01, 10);
+		person.setBornDate(cal.getTime());
+		Sword sword = new Sword();
+		sword.setForgedAt(person.getBornDate());
+		sword.setLength(100500.42);
+		person.setSword(sword);
 		new Service().save(person);
 	}
 }

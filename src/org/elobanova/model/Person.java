@@ -1,7 +1,6 @@
 package org.elobanova.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +28,11 @@ public class Person {
 	@Column(name = "KILL_DATE")
 	private Date wasKilledAt;
 
-	private List<Pet> pets;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BORN_DATE")
+	private Date bornDate;
+
+	private Sword sword;
 
 	@Lob
 	private String loveStoryDescription;
@@ -65,5 +68,21 @@ public class Person {
 
 	public void setLoveStoryDescription(String loveStoryDescription) {
 		this.loveStoryDescription = loveStoryDescription;
+	}
+
+	public Sword getSword() {
+		return sword;
+	}
+
+	public void setSword(Sword sword) {
+		this.sword = sword;
+	}
+
+	public Date getBornDate() {
+		return bornDate;
+	}
+
+	public void setBornDate(Date bornDate) {
+		this.bornDate = bornDate;
 	}
 }
