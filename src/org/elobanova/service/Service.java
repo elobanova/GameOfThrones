@@ -29,6 +29,8 @@ public class Service {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Object retrievedObject = session.get(Person.class, PRIM_KEY);
+		session.getTransaction().commit();
+		session.close();
 		if (retrievedObject instanceof Person) {
 			return (Person) retrievedObject;
 		}

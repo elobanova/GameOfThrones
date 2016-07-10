@@ -55,7 +55,7 @@ public class Person {
 
 	@ElementCollection
 	@JoinTable(name = "CHARACTER_PET", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
-	@GenericGenerator(name="sequence-gen",strategy="sequence")
+	@GenericGenerator(name = "sequence-gen", strategy = "sequence")
 	@CollectionId(columns = { @Column(name = "PET_ID") }, generator = "sequence-gen", type = @Type(type = "long"))
 	private Collection<Pet> pets = new ArrayList<>();
 
