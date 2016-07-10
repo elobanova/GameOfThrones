@@ -9,6 +9,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,10 +19,6 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "GOT_CHARACTER")
@@ -53,10 +50,8 @@ public class Person {
 	@Lob
 	private String loveStoryDescription;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "CHARACTER_PET", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
-	@GenericGenerator(name = "sequence-gen", strategy = "sequence")
-	@CollectionId(columns = { @Column(name = "PET_ID") }, generator = "sequence-gen", type = @Type(type = "long"))
 	private Collection<Pet> pets = new ArrayList<>();
 
 	// Capturing the values in fact from the getter

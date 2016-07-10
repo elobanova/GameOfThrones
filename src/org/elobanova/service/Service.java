@@ -30,6 +30,8 @@ public class Service {
 		session.beginTransaction();
 		Object retrievedObject = session.get(Person.class, PRIM_KEY);
 		session.getTransaction().commit();
+		
+		//does good with eager
 		session.close();
 		if (retrievedObject instanceof Person) {
 			return (Person) retrievedObject;
