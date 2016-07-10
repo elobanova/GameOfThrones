@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +54,10 @@ public class Person {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "CHARACTER_PET", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
 	private Collection<Pet> pets = new ArrayList<>();
+
+	@OneToOne
+	@JoinColumn(name = "HOME_LAND_ID")
+	private Land homeLand;
 
 	// Capturing the values in fact from the getter
 	public int getPersonId() {
@@ -109,5 +114,13 @@ public class Person {
 
 	public void setPets(Collection<Pet> pets) {
 		this.pets = pets;
+	}
+
+	public Land getHomeLand() {
+		return homeLand;
+	}
+
+	public void setHomeLand(Land homeLand) {
+		this.homeLand = homeLand;
 	}
 }

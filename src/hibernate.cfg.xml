@@ -30,12 +30,13 @@
             org.hibernate.dialect.PostgreSQLDialect
         </property>
         
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
         <mapping class="org.elobanova.model.Person"/>
+        <mapping class="org.elobanova.model.Land"/>
 
     </session-factory>
 

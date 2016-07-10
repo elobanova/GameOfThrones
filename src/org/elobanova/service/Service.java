@@ -2,6 +2,7 @@ package org.elobanova.service;
 
 import java.util.Calendar;
 
+import org.elobanova.model.Land;
 import org.elobanova.model.Person;
 import org.elobanova.model.Pet;
 import org.elobanova.model.Sword;
@@ -12,12 +13,21 @@ import org.hibernate.cfg.Configuration;
 public class Service {
 	private static final int PRIM_KEY = 1;
 	private final SessionFactory sessionFactory;
+	private static Service instance;
 
-	public Service() {
+	private Service() {
 		sessionFactory = new Configuration().configure().buildSessionFactory();
 	}
 
-	public void save(Person person) {
+	public static Service getInstance() {
+		if (instance == null) {
+			instance = new Service();
+		}
+
+		return instance;
+	}
+
+	public void save(Object person) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(person);
@@ -30,8 +40,8 @@ public class Service {
 		session.beginTransaction();
 		Object retrievedObject = session.get(Person.class, PRIM_KEY);
 		session.getTransaction().commit();
-		
-		//does good with eager
+
+		// does good with eager
 		session.close();
 		if (retrievedObject instanceof Person) {
 			return (Person) retrievedObject;
@@ -62,6 +72,10 @@ public class Service {
 		johnSnow.getPets().add(direWolf);
 		johnSnow.getPets().add(flyingDove);
 
-		new Service().save(johnSnow);
+		Land land = new Land();
+		land.setLandName("Westeros");
+		Service.getInstance().save(land);
+		johnSnow.setHomeLand(land);
+		Service.getInstance().save(johnSnow);
 	}
 }
