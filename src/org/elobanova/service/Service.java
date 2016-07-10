@@ -2,6 +2,7 @@ package org.elobanova.service;
 
 import java.util.Calendar;
 
+import org.elobanova.model.Family;
 import org.elobanova.model.Land;
 import org.elobanova.model.Person;
 import org.elobanova.model.Pet;
@@ -71,11 +72,21 @@ public class Service {
 
 		johnSnow.getPets().add(direWolf);
 		johnSnow.getPets().add(flyingDove);
-
+		
+		Person ariaStark = new Person();
+		ariaStark.setFirstName("Aria Stark");
+		Service.getInstance().save(ariaStark);
+		
 		Land land = new Land();
 		land.setLandName("Westeros");
 		Service.getInstance().save(land);
 		johnSnow.setHomeLand(land);
 		Service.getInstance().save(johnSnow);
+		
+		Family starks = new Family();
+		starks.setLastName("Starks Owners of the North");
+		starks.getMembers().add(johnSnow);
+		starks.getMembers().add(ariaStark);
+		Service.getInstance().save(starks);
 	}
 }
