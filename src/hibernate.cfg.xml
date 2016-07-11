@@ -38,7 +38,7 @@
         <mapping class="org.elobanova.model.Person"/>
         <mapping class="org.elobanova.model.Land"/>
         <mapping class="org.elobanova.model.Family"/>
-
+		<mapping class="org.elobanova.model.Pet"/>
     </session-factory>
 
 </hibernate-configuration>
