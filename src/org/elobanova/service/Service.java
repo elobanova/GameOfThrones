@@ -70,8 +70,8 @@ public class Service {
 		johnSnow.setSword(sword);
 
 		Pet direWolf = new Pet();
-		direWolf.setNickName("John Snow's Dire Wolf Puff");
-		direWolf.setAlive(false);
+		direWolf.setNickName("Ghost");
+		direWolf.setAlive(true);
 
 		Pet flyingDove = new Pet();
 		flyingDove.setNickName("John Snow's Flying Dove A319");
