@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -58,6 +59,9 @@ public class Person {
 	@OneToOne
 	@JoinColumn(name = "HOME_LAND_ID")
 	private Land homeLand;
+
+	@ManyToMany
+	private Collection<Family> families = new ArrayList<>();
 
 	// Capturing the values in fact from the getter
 	public int getPersonId() {
@@ -122,5 +126,13 @@ public class Person {
 
 	public void setHomeLand(Land homeLand) {
 		this.homeLand = homeLand;
+	}
+
+	public Collection<Family> getFamilies() {
+		return families;
+	}
+
+	public void setFamilies(Collection<Family> families) {
+		this.families = families;
 	}
 }

@@ -1,6 +1,8 @@
 package org.elobanova.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.elobanova.model.Family;
 import org.elobanova.model.Land;
@@ -28,10 +30,15 @@ public class Service {
 		return instance;
 	}
 
-	public void save(Object person) {
+	public void save(Collection<?> objects) {
+		if (objects == null || objects.isEmpty()) {
+			// log and return
+			return;
+		}
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(person);
+		objects.stream().forEach(object -> session.save(object));
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -72,21 +79,35 @@ public class Service {
 
 		johnSnow.getPets().add(direWolf);
 		johnSnow.getPets().add(flyingDove);
-		
-		Person ariaStark = new Person();
-		ariaStark.setFirstName("Aria Stark");
-		Service.getInstance().save(ariaStark);
-		
+
 		Land land = new Land();
 		land.setLandName("Westeros");
-		Service.getInstance().save(land);
+
+		Person ariaStark = new Person();
+		ariaStark.setFirstName("Aria Stark");
+		ariaStark.setHomeLand(land);
+
 		johnSnow.setHomeLand(land);
-		Service.getInstance().save(johnSnow);
-		
+
 		Family starks = new Family();
 		starks.setLastName("Starks Owners of the North");
+		Family targaryens = new Family();
+		targaryens.setLastName("Targaryens with Fire and Blood");
+
 		starks.getMembers().add(johnSnow);
 		starks.getMembers().add(ariaStark);
-		Service.getInstance().save(starks);
+		targaryens.getMembers().add(johnSnow);
+
+		ariaStark.getFamilies().add(starks);
+		johnSnow.getFamilies().add(starks);
+		johnSnow.getFamilies().add(targaryens);
+
+		Collection<Object> objectsToSave = new ArrayList<>();
+		objectsToSave.add(land);
+		objectsToSave.add(ariaStark);
+		objectsToSave.add(johnSnow);
+		objectsToSave.add(targaryens);
+		objectsToSave.add(starks);
+		Service.getInstance().save(objectsToSave);
 	}
 }
